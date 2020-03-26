@@ -56,17 +56,17 @@ $ docker-compose run --rm app rake db:migrate
 Backup database:
 
 ```
-$ docker exec <containerId> pg_dump -a -U masajid masajid > dump_masajid_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+$ docker exec <serverContainerId> pg_dump -a -U deploy masajid > ../masajid/dump_masajid_`date +%d-%m-%Y"_"%H_%M_%S`.sql
 ```
 
 Restore to localhost database:
 
 ```
-$ psql -U postgres -d masajid_development < dump_masajid_xxx.sql
+$ docker exec -i <localContainerId> psql -U postgres -d masajid_development < dump_masajid_dd-mm-yyyy_hh_mm_ss.sql
 ```
 
 Backup uploads:
 
 ```
-$ docker cp <containerId>:/app/web_container/storage ./web_container
+$ docker cp <containerId>:/app/web_container/storage ../masajid/web_container
 ```
