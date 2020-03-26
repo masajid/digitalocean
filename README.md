@@ -70,4 +70,3 @@ Backup uploads:
 ```
 $ docker cp <containerId>:/app/web_container/storage ./web_container
 ```
->>>>>>> a01175d... feat: deploy with digitalocean
