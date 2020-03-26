@@ -15,7 +15,7 @@ services:
 
   sidekiq:
     build:
-      context: ../masajid/
+      context: ../masajid
       dockerfile: Dockerfile.prod
     env_file: .env
     command: sidekiq -C config/sidekiq.yml
@@ -27,7 +27,7 @@ services:
 
   cron_job:
     build:
-      context: ../masajid/
+      context: ../masajid
       dockerfile: Dockerfile.prod
     env_file: .env
     command: cron -f
@@ -39,7 +39,7 @@ services:
 
   app:
     build:
-      context: ../masajid/
+      context: ../masajid
       dockerfile: Dockerfile.prod
     env_file: .env
     volumes:
