@@ -28,11 +28,11 @@ $ docker ps
 
 $ export RAILS_MASTER_KEY=$(cat ../masajid/web_container/config/master.key)
 
-$ docker-compose up -d db
-$ docker-compose build --build-arg="RAILS_MASTER_KEY=${RAILS_MASTER_KEY}" app
-$ docker-compose run --rm app rake db:create db:migrate db:seed
-$ docker-compose run --rm app rake content_places:import only=countries
-$ docker-compose up -d app sidekiq cron_job nginx
+$ docker-compose --project-name=masajid up -d db
+$ docker-compose --project-name=masajid build --build-arg="RAILS_MASTER_KEY=${RAILS_MASTER_KEY}" app
+$ docker-compose --project-name=masajid run --rm app rake db:create db:migrate db:seed
+$ docker-compose --project-name=masajid run --rm app rake content_places:import only=countries
+$ docker-compose --project-name=masajid up -d app sidekiq cron_job nginx
 ```
 
 Stop and remove droplet:
@@ -45,9 +45,9 @@ $ docker-machine rm masajid
 ## Deployment
 
 ```
-$ docker-compose build --build-arg="RAILS_MASTER_KEY=${RAILS_MASTER_KEY}" app
-$ docker-compose up --no-deps -d app sidekiq cron_job
-$ docker-compose run --rm app rake db:migrate
+$ docker-compose --project-name=masajid build --build-arg="RAILS_MASTER_KEY=${RAILS_MASTER_KEY}" app
+$ docker-compose --project-name=masajid up --no-deps -d app sidekiq cron_job
+$ docker-compose --project-name=masajid run --rm app rake db:migrate
 ```
 
 
