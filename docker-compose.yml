@@ -13,31 +13,7 @@ services:
     volumes:
       - redis:/data
 
-  sidekiq:
-    build:
-      context: ../masajid
-      dockerfile: Dockerfile.prod
-    env_file: .env
-    command: sidekiq -C config/sidekiq.yml
-    volumes:
-      - storage:/app/web_container/storage
-    depends_on:
-      - db
-      - redis
-
-  cron_job:
-    build:
-      context: ../masajid
-      dockerfile: Dockerfile.prod
-    env_file: .env
-    command: cron -f
-    volumes:
-      - storage:/app/web_container/storage
-    depends_on:
-      - db
-      - redis
-
-  app:
+  app: &app_base
     build:
       context: ../masajid
       dockerfile: Dockerfile.prod
@@ -49,6 +25,20 @@ services:
     depends_on:
       - db
       - redis
+
+  sidekiq:
+    <<: *app_base
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    ports: []
+    depends_on:
+      - app
+
+  cron_job:
+    <<: *app_base
+    command: cron -f
+    ports: []
+    depends_on:
+      - app
 
   nginx:
     build:

@@ -45,7 +45,7 @@ $ docker-machine rm masajid
 ## Deployment
 
 ```
-$ docker-compose --project-name=masajid build --build-arg="RAILS_MASTER_KEY=${RAILS_MASTER_KEY}" app
+$ docker-compose --project-name=masajid build --build-arg="RAILS_MASTER_KEY=${RAILS_MASTER_KEY}" app sidekiq cron_job
 $ docker-compose --project-name=masajid up --no-deps -d app sidekiq cron_job
 $ docker-compose --project-name=masajid run --rm app rake db:migrate
 ```
