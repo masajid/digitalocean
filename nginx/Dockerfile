@@ -5,12 +5,7 @@ RUN apt-get update -yqq && \
 
 # To run inside container, manually for now
 # RUN certbot --server https://acme-v02.api.letsencrypt.org/directory
-#	 -d www.rubyaumaroc.com -d rubyaumaroc.com -d *.masajid.world -d masajid.world \
+#	 -d www.al-nour.de -d al-nour.com -d *.masajid.world -d masajid.world \
 #	 --manual --preferred-challenges dns-01 certonly
-# RUN certbot \
-#   --server https://acme-v02.api.letsencrypt.org/directory \
-#   -d *.masajid.world -d masajid.world \
-#   --manual \
-#   --preferred-challenges dns-01 certonly
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# COPY nginx.conf /etc/nginx/nginx.conf

@@ -6,9 +6,11 @@ App deployment to digitalocean
 
 Setup droplet using docker-machine:
 
+Note: Nginx configurations and ssl certificates must be added manually for now.
+
 Initial steps:
 
-- copy `.env` file to root folder and change the environment variables
+- copy `.env` file to root folder and change the database environment variables
 
 ```
 $ export DO_TOKEN=<do-token>
@@ -35,7 +37,7 @@ $ docker-compose --project-name=masajid run --rm app rake content_places:import 
 $ docker-compose --project-name=masajid up -d app sidekiq cron_job nginx
 ```
 
-Stop and remove droplet:
+Stop and remove droplet (Please don't do unless you know what you are doing :)
 
 ```
 $ docker-machine stop masajid
@@ -50,23 +52,22 @@ $ docker-compose --project-name=masajid up --no-deps -d app sidekiq cron_job
 $ docker-compose --project-name=masajid run --rm app rake db:migrate
 ```
 
-
 ## Backups
 
 Backup database:
 
 ```
-$ docker exec <serverContainerId> pg_dump -a -U deploy masajid > ../masajid/dump_masajid_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+$ docker exec <server-container-id> pg_dump -a -U deploy masajid > ../masajid/dump_masajid_`date +%d-%m-%Y"_"%H_%M_%S`.sql
 ```
 
 Restore to localhost database:
 
 ```
-$ docker exec -i <localContainerId> psql -U postgres -d masajid_development < dump_masajid_dd-mm-yyyy_hh_mm_ss.sql
+$ docker exec -i <local-container-id> psql -U postgres -d masajid_development < dump_masajid_dd-mm-yyyy_hh_mm_ss.sql
 ```
 
 Backup uploads:
 
 ```
-$ docker cp <containerId>:/app/web_container/storage ../masajid/web_container
+$ docker cp <app-container-id>:/app/web_container/storage ../masajid/web_container
 ```
