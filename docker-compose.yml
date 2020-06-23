@@ -17,7 +17,6 @@ services:
     build:
       context: ../masajid
       dockerfile: Dockerfile.prod
-    env_file: .env
     volumes:
       - storage:/app/web_container/storage
     ports:
