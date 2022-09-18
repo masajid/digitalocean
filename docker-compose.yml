@@ -14,9 +14,7 @@ services:
       - redis:/data
 
   app: &app_base
-    build:
-      context: ../masajid
-      dockerfile: Dockerfile.prod
+    image: masajidworld/masajid:latest
     volumes:
       - storage:/app/web_container/storage
     ports:
