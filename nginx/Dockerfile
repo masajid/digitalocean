@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:1-bullseye
 
 RUN apt-get update -yqq && \
   apt-get install -yqq vim curl certbot python-certbot-nginx nginx-extras
